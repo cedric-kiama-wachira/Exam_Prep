@@ -116,3 +116,32 @@ sudo pvremove /dev/vdd
 sudo vgcreate examVG /dev/vdc
 sudo lvcreate -L 100MB -n examLV examVG
 sudo mkfs.xfs -b size=1024 /dev/examVG/examLV
+
+# Linux Challenge 1
+
+lvcreate -n volume_1 -l 100%FREE dba_storage 
+
+location / {
+                   proxy_pass  http://localhost:8081;
+        }
+
+
+setquota -g devs 100M 500M 0 0 /dev/vdb1
+quota -g -s  devs 
+
+rm -f $(find /opt/appdata/ -type f -exec grep -l 't\>' "{}"  \; )
+
+find /home/bob/preserved -type f -not -name ".*" -exec cp "{}" /opt/appdata/files/ \;
+
+find /home/bob/preserved -type f -name ".*" -exec cp "{}" /opt/appdata/hidden/ \;
+
+find /opt/appdata -type f -name "*" -exec sed -i 's/\byes\b/no/g' "{}" \;
+
+find /opt/appdata -type f -name "*" -exec sed -i 's/\braw\b/processed/ig' "{}" \;
+
+tar -xzOf /opt/appdata.tar.gz | grep processed > /home/bob/filtered.txt
+
+
+
+docker run -d -p 80:80 --name myapp nginx
+
