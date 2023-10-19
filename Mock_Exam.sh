@@ -141,7 +141,7 @@ find /opt/appdata -type f -name "*" -exec sed -i 's/\braw\b/processed/ig' "{}" \
 
 tar -xzOf /opt/appdata.tar.gz | grep processed > /home/bob/filtered.txt
 
-
+tar -xz0f
 
 docker run -d -p 80:80 --name myapp nginx
 
